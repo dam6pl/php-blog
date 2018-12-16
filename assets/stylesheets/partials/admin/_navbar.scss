@@ -1,0 +1,17 @@
+#mainNav {
+  border-bottom: 1px solid #e9ecef;
+
+  .navbar-brand {
+    color: #343a40;
+  }
+
+  .navbar-nav {
+
+    & > li.nav-item {
+
+      & > a {
+        color: #343a40;
+      }
+    }
+  }
+}

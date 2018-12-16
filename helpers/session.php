@@ -17,5 +17,5 @@ function remove_session() {};
  */
 function is_logged(): bool
 {
-    return false;
+    return true;
 }

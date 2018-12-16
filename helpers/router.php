@@ -8,14 +8,18 @@ if (preg_match('/^\/admin$|\/admin\//', $request_uri)) {
     if (is_logged()) {
         switch ($request_uri) {
             case '/admin':
-                require 'views/admin/home.php';
-                break;
-            case '/admin/posts':
-                //TODO
+                require 'views/admin/posts.php';
                 break;
             case (bool)preg_match('/^\/admin\/posts\/(?<ID>\d+)\/?/', $request_uri, $matches):
                 $post_id = $matches[1];
-                //TODO
+                require 'views/admin/single-post.php';
+                break;
+            case '/admin/users':
+                require 'views/admin/users.php';
+                break;
+            case (bool)preg_match('/^\/admin\/users\/(?<ID>\d+)\/?/', $request_uri, $matches):
+                $post_id = $matches[1];
+                require 'views/admin/single-user.php';
                 break;
             default:
                 header('Redirect: /admin');

@@ -5,7 +5,7 @@
                 <h2>Rejestracja</h2>
             </div>
             <form method="post" action="">
-                <input type="text" name="action" value="register_account" hidden>
+                <input type="text" name="action" title="action" value="register_account" hidden>
                 <div class="form-group floating-label-form-group">
                     <label>Imie i nazwisko</label>
                     <input type="text" class="form-control" name="name" placeholder="Imie i nazwisko">

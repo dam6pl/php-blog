@@ -323,5 +323,29 @@ body.admin .main-div {
     font-size: 14px; }
   body.admin .main-div .btn {
     width: 100%; }
+body.admin #mainNav {
+  border-bottom: 1px solid #e9ecef; }
+  body.admin #mainNav .navbar-brand {
+    color: #343a40; }
+  body.admin #mainNav .navbar-nav > li.nav-item > a {
+    color: #343a40; }
+body.admin .posts-list td.actions {
+  text-align: center; }
+  body.admin .posts-list td.actions a {
+    text-decoration: none;
+    color: green; }
+    body.admin .posts-list td.actions a:hover {
+      color: #0085A1; }
+  body.admin .posts-list td.actions form {
+    display: inline; }
+    body.admin .posts-list td.actions form button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: red; }
+      body.admin .posts-list td.actions form button:focus {
+        outline: none; }
+      body.admin .posts-list td.actions form button:hover {
+        color: #0085A1; }
 
 /*# sourceMappingURL=styles.css.map */
