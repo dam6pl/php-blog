@@ -1,8 +1,7 @@
 <?php
-
 //Define const
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'wsb');
+define('DB_NAME', 'blog');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
@@ -13,3 +12,5 @@ require_once 'helpers/session.php';
 
 //Simple router
 include_once 'helpers/router.php';
+
+create_database();
