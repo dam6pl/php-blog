@@ -1,7 +1,7 @@
 <?php
 $request_uri = $_SERVER['REQUEST_URI'];
 
-if (preg_match('/\/admin$|\/admin\//', $request_uri)) {
+if (preg_match('/^\/admin$|\/admin\//', $request_uri)) {
     //Require static header
     require_once 'views/admin/partials/header.php';
 
@@ -9,6 +9,13 @@ if (preg_match('/\/admin$|\/admin\//', $request_uri)) {
         switch ($request_uri) {
             case '/admin':
                 require 'views/admin/home.php';
+                break;
+            case '/admin/posts':
+                //TODO
+                break;
+            case (bool)preg_match('/^\/admin\/posts\/(?<ID>\d+)\/?/', $request_uri, $matches):
+                $post_id = $matches[1];
+                //TODO
                 break;
             default:
                 header('Redirect: /admin');
@@ -32,24 +39,23 @@ if (preg_match('/\/admin$|\/admin\//', $request_uri)) {
     //Require static header
     require_once 'views/partials/header.php';
 
-    if (preg_match('/\/post\/(?<ID>\d+)\/?/', $request_uri, $matches)) {
-        $post_id = $matches[1];
-        require 'views/post.php';
-    } else {
-        switch ($request_uri) {
-            case '/':
-                require 'views/home.php';
-                break;
-            case '/about':
-                require 'views/about.php';
-                break;
-            case '/contact':
-                require 'views/contact.php';
-                break;
-            default:
-                header('HTTP/1.0 404 Not Found');
-                require 'views/404.php';
-        }
+    switch ($request_uri) {
+        case '/':
+            require 'views/home.php';
+            break;
+        case '/about':
+            require 'views/about.php';
+            break;
+        case '/contact':
+            require 'views/contact.php';
+            break;
+        case (bool)preg_match('/^\/posts\/(?<ID>\d+)\/?/', $request_uri, $matches):
+            $post_id = $matches[1];
+            require 'views/post.php';
+            break;
+        default:
+            header('HTTP/1.0 404 Not Found');
+            require 'views/404.php';
     }
 
     //Require static footer

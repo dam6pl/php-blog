@@ -5,8 +5,10 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    <h1>Blog podróżniczy dla ciekawych świata!</h1>
+                    <span class="subheading">
+                        Opisy wycieczek, subiektywne przewodniki, piękne zdjęcia i mnóstwo porad jak zaplanować własny wyjazd.
+                    </span>
                 </div>
             </div>
         </div>

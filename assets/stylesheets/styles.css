@@ -267,7 +267,8 @@ header.masthead {
     transition: top 0.3s ease, opacity 0.3s ease;
     vertical-align: middle;
     vertical-align: baseline;
-    opacity: 0; }
+    opacity: 0;
+    text-align: left; }
   .floating-label-form-group .help-block {
     margin: 15px 0; }
 
