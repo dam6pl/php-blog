@@ -1,23 +1,22 @@
 <?php
-$request_uri = $_SERVER['REQUEST_URI'];
 
-if (preg_match('/^\/admin$|\/admin\//', $request_uri)) {
+if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
     //Require static header
     require_once 'views/admin/partials/header.php';
 
     if (is_logged()) {
-        switch ($request_uri) {
+        switch (REQUEST_URL) {
             case '/admin':
                 require 'views/admin/posts.php';
                 break;
-            case (bool)preg_match('/^\/admin\/posts\/(?<ID>\d+)\/?/', $request_uri, $matches):
+            case (bool)preg_match('/^\/admin\/posts\/(?<ID>\d+)\/?/', REQUEST_URL, $matches):
                 $post_id = $matches[1];
                 require 'views/admin/single-post.php';
                 break;
             case '/admin/users':
                 require 'views/admin/users.php';
                 break;
-            case (bool)preg_match('/^\/admin\/users\/(?<ID>\d+)\/?/', $request_uri, $matches):
+            case (bool)preg_match('/^\/admin\/users\/(?<ID>\d+)\/?/', REQUEST_URL, $matches):
                 $post_id = $matches[1];
                 require 'views/admin/single-user.php';
                 break;
@@ -25,7 +24,7 @@ if (preg_match('/^\/admin$|\/admin\//', $request_uri)) {
                 header('Redirect: /admin');
         }
     } else {
-        switch ($request_uri) {
+        switch (REQUEST_URL) {
             case '/admin':
                 require 'views/admin/login.php';
                 break;
@@ -43,8 +42,8 @@ if (preg_match('/^\/admin$|\/admin\//', $request_uri)) {
     //Require static header
     require_once 'views/partials/header.php';
 
-    switch ($request_uri) {
-        case '/':
+    switch (REQUEST_URL) {
+        case '':
             require 'views/home.php';
             break;
         case '/about':
@@ -53,7 +52,7 @@ if (preg_match('/^\/admin$|\/admin\//', $request_uri)) {
         case '/contact':
             require 'views/contact.php';
             break;
-        case (bool)preg_match('/^\/posts\/(?<ID>\d+)\/?/', $request_uri, $matches):
+        case (bool)preg_match('/^\/posts\/(?<ID>\d+)\/?/', REQUEST_URL, $matches):
             $post_id = $matches[1];
             require 'views/post.php';
             break;

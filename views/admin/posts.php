@@ -17,7 +17,7 @@
                 <td>Damian Nowak (dam6pl)</td>
                 <td><?= date('d M Y H:m:s'); ?></td>
                 <td class="actions">
-                    <a href="/admin/post/1">
+                    <a href="<?= HOME_URL; ?>admin/post/1">
                         <span class="fa-stack fa-sm">
                             <i class="fas fa-edit fa-stack-1x"></i>
                         </span>

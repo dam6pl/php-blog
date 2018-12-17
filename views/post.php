@@ -5,7 +5,7 @@
 ?>
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('/assets/images/post-bg.jpg')">
+<header class="masthead" style="background-image: url('<?= HOME_URL; ?>assets/images/post-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -75,7 +75,7 @@
                     this has to change a man.</p>
 
                 <a href="#">
-                    <img class="img-fluid" src="/assets/images/post-sample-image.jpg" alt="">
+                    <img class="img-fluid" src="<?= HOME_URL; ?>assets/images/post-sample-image.jpg" alt="">
                 </a>
                 <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
 

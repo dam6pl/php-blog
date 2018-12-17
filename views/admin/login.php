@@ -16,7 +16,7 @@
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="create-account my-4">
-                    <span>Nie masz konta?</span> <a href="/admin/create-account">Utwórz konto!</a>
+                    <span>Nie masz konta?</span> <a href="<?= HOME_URL; ?>admin/create-account">Utwórz konto!</a>
                 </div>
                 <button type="submit" class="btn btn-primary">Zaloguj się</button>
             </form>

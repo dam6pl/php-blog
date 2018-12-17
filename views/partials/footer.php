@@ -18,7 +18,7 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"></script>
 
 <!-- Custom scripts for this template -->
-<script src="/assets/javascripts/script.js"></script>
+<script src="<?= HOME_URL; ?>assets/javascripts/script.js"></script>
 
 </body>
 </html>
