@@ -13,6 +13,10 @@ try {
         DB_USER,
         DB_PASS
     );
+
+    $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+
+    create_database();
 } catch (PDOException $exception) {
     die($exception->getMessage());
 }
@@ -22,37 +26,65 @@ try {
  *
  * @uses PDO $pdo
  */
-function create_database()
+function create_database(): void
 {
     global $pdo;
 
-    $pdo->query('CREATE TABLE `users` (
-        `id_user` int(11) NOT NULL,
-        `full_name` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-        `login` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-        `password` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-        `register_a` date NOT NULL,
-        `is_admin` tinyint(1) NOT NULL,
-        `added_at` date NOT NULL,
-        `modified_at` date NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $pdo->query('CREATE TABLE `posts` (
-        `id_post` int(11) NOT NULL,
-        `id_user` int(11) NOT NULL,
-        `name` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-        `content` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-        `added_at` date NOT NULL,
-        `modified_at` date NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;');
+    try {
+        $pdo->exec('CREATE TABLE IF NOT EXISTS users (
+        user_id int(11) NOT NULL AUTO_INCREMENT,
+        login varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+        password varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+        display_name varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+        is_admin bool NOT NULL,
+        added_at datetime NOT NULL,
+        modified_at datetime NOT NULL,
+        PRIMARY KEY (user_id)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;');
 
-    $pdo->query('CREATE TABLE `komments` (
-        `id_komment` int(11) NOT NULL,
-        `id_post` int(11) NOT NULL,
-        `content` varchar(50) COLLATE utf8_polish_ci NOT NULL,
-        `added_at` date NOT NULL,
-        `modified` date NOT NULL
-      ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;');
+        $pdo->exec('CREATE TABLE IF NOT EXISTS posts (
+        post_id int(11) NOT NULL AUTO_INCREMENT,
+        author_id int(11) NOT NULL,
+        title varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+        content LONGTEXT COLLATE utf8mb4_unicode_ci NOT NULL,
+        added_at datetime NOT NULL,
+        modified_at datetime NOT NULL,
+        PRIMARY KEY (post_id),
+        FOREIGN KEY (author_id) REFERENCES users(user_id) 
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;');
+
+        $pdo->exec('CREATE TABLE IF NOT EXISTS comments (
+        comment_id int(11) NOT NULL AUTO_INCREMENT,
+        post_id int(11) NOT NULL,
+        content varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+        added_at datetime NOT NULL,
+        modified datetime NOT NULL,
+        PRIMARY KEY (comment_id),
+        FOREIGN KEY (post_id) REFERENCES posts(post_id) 
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;');
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+}
+
+/**
+ * Check if user exist.
+ *
+ * @param string $login
+ * @param string $password
+ *
+ * @return bool
+ */
+function user_exist(string $login, string $password): bool
+{
+    global $pdo;
+
+    $query = $pdo->prepare("SELECT * FROM users WHERE login = ? AND password = ?");
+    $query->execute([$login, md5($password)]);
+
+    return (bool)$query->rowCount();
 }
 
 /**
@@ -63,4 +95,44 @@ function create_database()
 function is_admin(): bool
 {
     return true;
+}
+
+/**
+ * Get list of posts.
+ *
+ * @return array
+ */
+function get_posts(): array
+{
+    global $pdo;
+
+    $query = $pdo->prepare("SELECT * FROM posts JOIN users");
+    $query->execute();
+
+    return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function get_post(int $post_id): array
+{
+    global $pdo;
+
+    $query = $pdo->prepare("SELECT * FROM posts JOIN users WHERE post_id = ?");
+    $query->execute([$post_id]);
+
+    return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Get list of users.
+ *
+ * @return array
+ */
+function get_users(): array
+{
+    global $pdo;
+
+    $query = $pdo->prepare("SELECT * FROM users");
+    $query->execute();
+
+    return $query->fetchAll(PDO::FETCH_ASSOC);
 }

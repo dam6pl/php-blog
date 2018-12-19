@@ -1,3 +1,9 @@
+form {
+  label {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+}
+
 .posts-list {
 
   td.actions {
@@ -30,5 +36,9 @@
         }
       }
     }
+  }
+
+  thead th {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 }

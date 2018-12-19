@@ -9,7 +9,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
             case '/admin':
                 require 'views/admin/posts.php';
                 break;
-            case (bool)preg_match('/^\/admin\/posts\/(?<ID>\d+)\/?/', REQUEST_URL, $matches):
+            case (bool)preg_match('/^\/admin\/posts\/(?<ID>(?:\d+|new))\/?/', REQUEST_URL, $matches):
                 $post_id = $matches[1];
                 require 'views/admin/single-post.php';
                 break;
@@ -21,7 +21,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
                 require 'views/admin/single-user.php';
                 break;
             default:
-                header('Redirect: /admin');
+                header("Redirect: " . HOME_URL . "/admin");
         }
     } else {
         switch (REQUEST_URL) {
@@ -32,7 +32,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
                 require 'views/admin/create-account.php';
                 break;
             default:
-                header('Location: /admin');
+                header("Redirect: " . HOME_URL . "/admin");
         }
     }
 

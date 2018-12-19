@@ -5,14 +5,15 @@
                 <h2>Panel administracyjny</h2>
             </div>
             <form method="post" action="">
+                <input type="text" name="action" title="action" value="login" hidden>
                 <div class="form-group floating-label-form-group controls">
                     <label>Login</label>
-                    <input type="text" class="form-control" placeholder="Login">
+                    <input type="text" class="form-control" name="login" placeholder="Login">
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group floating-label-form-group mt-4 controls">
                     <label>Hasło</label>
-                    <input type="password" class="form-control" placeholder="Hasło">
+                    <input type="password" class="form-control" name="password" placeholder="Hasło">
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="create-account my-4">
