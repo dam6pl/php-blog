@@ -82,6 +82,18 @@ img::-moz-selection {
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase; }
+  #mainNav .navbar-nav > li.nav-item form button {
+    border: none;
+    background: none;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 8px 0;
+    cursor: pointer;
+    color: #343a40; }
+    #mainNav .navbar-nav > li.nav-item form button:focus {
+      outline: none; }
   @media only screen and (min-width: 992px) {
     #mainNav {
       border-bottom: 1px solid transparent;
@@ -96,17 +108,7 @@ img::-moz-selection {
         #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {
           color: rgba(255, 255, 255, 0.8); }
       #mainNav .navbar-nav > li.nav-item form button {
-        border: none;
-        background: none;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 10px 20px;
-        cursor: pointer;
-        color: #343a40; }
-        #mainNav .navbar-nav > li.nav-item form button:focus {
-          outline: none; } }
+        padding: 10px 20px; } }
   @media only screen and (min-width: 992px) {
     #mainNav {
       -webkit-transition: background-color 0.2s;

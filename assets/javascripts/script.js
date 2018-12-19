@@ -30,4 +30,15 @@
             });
     }
 
+    tinymce.init({
+        selector: '#visual-content',
+        init_instance_callback: function (editor) {
+            editor.on('Change', function (e) {
+                $('#visual-content').html(editor.getContent());
+            });
+        },
+        height: 300,
+        menubar: false
+    });
+
 })(jQuery);

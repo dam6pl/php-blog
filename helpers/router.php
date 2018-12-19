@@ -21,7 +21,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
                 require 'views/admin/single-user.php';
                 break;
             default:
-                header("Redirect: " . HOME_URL . "/admin");
+                header("Location: " . HOME_URL . "admin");
         }
     } else {
         switch (REQUEST_URL) {
@@ -32,7 +32,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
                 require 'views/admin/create-account.php';
                 break;
             default:
-                header("Redirect: " . HOME_URL . "/admin");
+                header("Location: " . HOME_URL . "/admin");
         }
     }
 

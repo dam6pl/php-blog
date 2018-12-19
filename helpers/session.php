@@ -3,11 +3,12 @@
 /**
  * Create new session on logged in.
  *
- * @param string $login User login.
+ * @param array $user
  */
-function create_session(string $login): void
+function create_session(array $user): void
 {
-    $_SESSION['login'] = $login;
+    $_SESSION['login'] = $user['login'];
+    $_SESSION['user_id'] = $user['user_id'];
 }
 
 /**
@@ -17,6 +18,7 @@ function remove_session(): void
 {
     session_destroy();
     $_SESSION['login'] = null;
+    $_SESSION['user_id'] = null;
 }
 
 /**

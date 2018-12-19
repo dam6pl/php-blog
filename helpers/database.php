@@ -23,8 +23,6 @@ try {
 
 /**
  * Create tables in the database.
- *
- * @uses PDO $pdo
  */
 function create_database(): void
 {
@@ -49,6 +47,7 @@ function create_database(): void
         author_id int(11) NOT NULL,
         title varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
         content LONGTEXT COLLATE utf8mb4_unicode_ci NOT NULL,
+        image_url varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
         added_at datetime NOT NULL,
         modified_at datetime NOT NULL,
         PRIMARY KEY (post_id),
@@ -70,24 +69,6 @@ function create_database(): void
 }
 
 /**
- * Check if user exist.
- *
- * @param string $login
- * @param string $password
- *
- * @return bool
- */
-function user_exist(string $login, string $password): bool
-{
-    global $pdo;
-
-    $query = $pdo->prepare("SELECT * FROM users WHERE login = ? AND password = ?");
-    $query->execute([$login, md5($password)]);
-
-    return (bool)$query->rowCount();
-}
-
-/**
  * Check if current user is admin.
  *
  * @return bool
@@ -100,18 +81,27 @@ function is_admin(): bool
 /**
  * Get list of posts.
  *
+ * @param bool $order_desc
+ *
  * @return array
  */
-function get_posts(): array
+function get_posts(bool $order_desc = false): array
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT * FROM posts JOIN users");
+    $query = $pdo->prepare("SELECT * FROM posts JOIN users ORDER BY post_id " . ($order_desc ? "DESC" : "ASC"));
     $query->execute();
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Get single post.
+ *
+ * @param int $post_id
+ *
+ * @return array
+ */
 function get_post(int $post_id): array
 {
     global $pdo;
@@ -120,6 +110,49 @@ function get_post(int $post_id): array
     $query->execute([$post_id]);
 
     return $query->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Update post or create new when Post ID is 0.
+ *
+ * @param int    $post_id
+ * @param string $title
+ * @param string $content
+ * @param string $image_url
+ */
+function update_post(int $post_id, string $title, string $content, string $image_url): void
+{
+    global $pdo;
+
+    $current_time = date('Y-m-d H:i:s');
+
+    if ($post_id > 0) {
+        $query = $pdo->prepare("UPDATE posts SET title = ?, content = ?, image_url = ?, modified_at = ? WHERE post_id = ?");
+        $query->execute([$title, $content, $image_url, $current_time, $post_id]);
+    } else {
+        $query = $pdo->prepare("INSERT INTO posts(author_id, title, content, image_url, added_at, modified_at) VALUES (?, ?, ?, ?, ?, ?)");
+        $query->execute([
+            $_SESSION['user_id'],
+            $title,
+            $content,
+            $image_url,
+            $current_time,
+            $current_time
+        ]);
+    }
+}
+
+/**
+ * Remove post from database.
+ *
+ * @param int $post_id
+ */
+function delete_post(int $post_id): void
+{
+    global $pdo;
+
+    $query = $pdo->prepare("DELETE FROM posts WHERE post_id = ?");
+    $query->execute([$post_id]);
 }
 
 /**
@@ -135,4 +168,22 @@ function get_users(): array
     $query->execute();
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Get single user details based on login details.
+ *
+ * @param string $login
+ * @param string $password
+ *
+ * @return array
+ */
+function get_user(string $login, string $password): array
+{
+    global $pdo;
+
+    $query = $pdo->prepare("SELECT * FROM users WHERE login = ? AND password = ?");
+    $query->execute([$login, md5($password)]);
+
+    return $query->fetch(PDO::FETCH_ASSOC) ?: [];
 }

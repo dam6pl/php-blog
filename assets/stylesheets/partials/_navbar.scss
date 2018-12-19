@@ -23,6 +23,22 @@
         letter-spacing: 1px;
         text-transform: uppercase;
       }
+      form {
+        button {
+          border: none;
+          background: none;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          padding: 8px 0;
+          cursor: pointer;
+          color: #343a40;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
     }
   }
   @media only screen and (min-width: 992px) {
@@ -48,20 +64,10 @@
 
         form {
           button {
-            border: none;
-            background: none;
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
             padding: 10px 20px;
-            cursor: pointer;
-            color: #343a40;
-            &:focus {
-              outline: none;
-            }
           }
         }
+
       }
     }
   }
