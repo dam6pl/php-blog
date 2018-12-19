@@ -89,7 +89,7 @@ function get_posts(bool $order_desc = false): array
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT * FROM posts JOIN users ORDER BY post_id " . ($order_desc ? "DESC" : "ASC"));
+    $query = $pdo->prepare("SELECT post_id, users.display_name, users.login, title, content, image_url, posts.added_at, posts.modified_at FROM posts JOIN users ORDER BY post_id " . ($order_desc ? "DESC" : "ASC"));
     $query->execute();
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
