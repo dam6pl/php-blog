@@ -2,12 +2,6 @@
 
 session_start();
 
-//Define const
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'wsb');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-
 define('REQUEST_URL', str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['PHP_SELF']));
 define('HOME_URL', str_replace(
         'index.php', '',

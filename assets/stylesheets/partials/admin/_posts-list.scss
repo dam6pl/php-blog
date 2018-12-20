@@ -1,10 +1,11 @@
-form {
-  label {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-}
-
 .posts-list {
+
+  thead {
+    th {
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
 
   td.actions {
     text-align: center;

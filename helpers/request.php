@@ -8,13 +8,16 @@ if (!empty($_POST) && isset($_POST['action'])) {
         $action();
     }
 
-    header("Location: " . HOME_URL . "admin");
+    if ($action !== 'action_save_post') {
+        $redirect = str_replace('index.php/', '', $_SERVER['PHP_SELF']);
+        header("Location: {$redirect}");
+    }
 }
 
 /**
  * Login user.
  */
-function login(): void
+function action_login(): void
 {
     $user = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -27,7 +30,7 @@ function login(): void
 /**
  * Logout user.
  */
-function logout(): void
+function action_logout(): void
 {
     remove_session();
 }
@@ -35,30 +38,65 @@ function logout(): void
 /**
  * Register user.
  */
-function register_account(): void
+function action_register_account(): void
 {
-    //TODO register user.
+    $display_name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+    $login = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+
+    create_user($login, $password, $display_name);
 }
 
 /**
  * Save single post content.
  */
-function save_post()
+function action_save_post(): void
 {
     $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING);
     $content = filter_input(INPUT_POST, 'content');
     $image = filter_input(INPUT_POST, 'image', FILTER_VALIDATE_URL);
 
-    update_post($post_id ?: 0, $title, $content, $image);
+    $postid = update_post($post_id ?: 0, $title, $content, $image);
+
+    header("Location: " . HOME_URL . "admin/posts/{$postid}");
 }
 
 /**
  * Remove single post.
  */
-function remove_post(): void
+function action_remove_post(): void
 {
     $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT);
-    var_dump($post_id);
+
     delete_post($post_id);
+}
+
+/**
+ * Add new comment.
+ */
+function action_add_comment(): void
+{
+    $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+    $content = filter_input(INPUT_POST, 'message');
+
+    create_comment($post_id, $name, $content);
+}
+
+/**
+ * Remove single post.
+ */
+function action_remove_comment(): void
+{
+    $comment_id = filter_input(INPUT_POST, 'comment_id', FILTER_VALIDATE_INT);
+
+    delete_comment($comment_id);
+}
+
+function action_remove_user(): void
+{
+    $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+
+    delete_user($user_id);
 }

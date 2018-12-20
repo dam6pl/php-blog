@@ -4,8 +4,8 @@
             <div class="panel mb-5">
                 <h2>Panel administracyjny</h2>
             </div>
-            <form method="post" action="">
-                <input type="text" name="action" title="action" value="login" hidden>
+            <form method="post" action="<?= HOME_URL; ?>admin">
+                <input type="text" name="action" title="action" value="action_login" hidden>
                 <div class="form-group floating-label-form-group controls">
                     <label>Login</label>
                     <input type="text" class="form-control" name="login" placeholder="Login">

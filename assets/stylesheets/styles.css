@@ -244,6 +244,9 @@ header.masthead {
   .post-preview > a > .post-title {
     font-size: 36px; } }
 
+article img {
+  max-width: 100%; }
+
 .floating-label-form-group {
   font-size: 14px;
   position: relative;
@@ -342,8 +345,9 @@ body.admin #mainNav {
     color: #343a40; }
   body.admin #mainNav .navbar-nav > li.nav-item > a {
     color: #343a40; }
-body.admin form label {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+body.admin .posts-list thead th {
+  text-align: center;
+  vertical-align: middle; }
 body.admin .posts-list td.actions {
   text-align: center; }
   body.admin .posts-list td.actions a {

@@ -7,18 +7,17 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
     if (is_logged()) {
         switch (REQUEST_URL) {
             case '/admin':
-                require 'views/admin/posts.php';
+                require 'views/admin/all-posts.php';
                 break;
             case (bool)preg_match('/^\/admin\/posts\/(?<ID>(?:\d+|new))\/?/', REQUEST_URL, $matches):
                 $post_id = $matches[1];
                 require 'views/admin/single-post.php';
                 break;
             case '/admin/users':
-                require 'views/admin/users.php';
+                require 'views/admin/all-users.php';
                 break;
-            case (bool)preg_match('/^\/admin\/users\/(?<ID>\d+)\/?/', REQUEST_URL, $matches):
-                $post_id = $matches[1];
-                require 'views/admin/single-user.php';
+            case '/admin/comments':
+                require 'views/admin/all-comments.php';
                 break;
             default:
                 header("Location: " . HOME_URL . "admin");
@@ -29,7 +28,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
                 require 'views/admin/login.php';
                 break;
             case '/admin/create-account':
-                require 'views/admin/create-account.php';
+                require 'views/admin/register.php';
                 break;
             default:
                 header("Location: " . HOME_URL . "/admin");

@@ -42,6 +42,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= HOME_URL; ?>admin">Posty</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= HOME_URL; ?>admin/comments">Komentarze</a>
+                </li>
                 <?php if (is_admin()): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= HOME_URL; ?>admin/users">Uzytkownicy</a>
@@ -51,8 +54,8 @@
                     <a class="nav-link" href="<?= HOME_URL; ?>">Wróc do strony</a>
                 </li>
                 <li class="nav-item">
-                    <form method="post" action="">
-                        <input name="action" title="action" value="logout" hidden>
+                    <form method="post" action="<?= HOME_URL; ?>admin">
+                        <input name="action" title="action" value="action_logout" hidden>
                         <button type="submit">Wyloguj się</button>
                     </form>
                 </li>

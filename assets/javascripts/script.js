@@ -32,6 +32,8 @@
 
     tinymce.init({
         selector: '#visual-content',
+        plugins: "image",
+        media_live_embeds: true,
         init_instance_callback: function (editor) {
             editor.on('Change', function (e) {
                 $('#visual-content').html(editor.getContent());
