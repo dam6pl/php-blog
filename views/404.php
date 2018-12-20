@@ -6,7 +6,8 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="site-heading">
                     <h1>404</h1>
-                    <span class="subheading">Strona której szukasz nie została znaleziona, <br>wróć do <a href="<?= HOME_URL; ?>">strony głównej</a>.</span>
+                    <span class="subheading">Strona której szukasz nie została znaleziona, <br>wróć do <a
+                                href="<?= HOME_URL; ?>">strony głównej</a>.</span>
                 </div>
             </div>
         </div>

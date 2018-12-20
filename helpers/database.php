@@ -21,8 +21,6 @@ try {
         $config['DB_PASS']
     );
 
-    $pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-
     create_database();
 } catch (PDOException $exception) {
     die($exception->getMessage());
@@ -34,8 +32,6 @@ try {
 function create_database(): void
 {
     global $pdo;
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
         $pdo->exec('CREATE TABLE IF NOT EXISTS users (

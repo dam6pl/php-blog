@@ -17,7 +17,7 @@ $post = is_numeric($post_id) ? get_post($post_id) : null;
         <div class="form-group">
             <label for="content">Treść postu</label>
             <textarea class="form-control" name="content" id="visual-content" rows="10" required
-                style="opacity: 0"><?= $post['content'] ?? ''; ?></textarea>
+                      style="opacity: 0"><?= $post['content'] ?? ''; ?></textarea>
         </div>
         <div class="form-group">
             <label for="image">Zdjęcie postu</label>
