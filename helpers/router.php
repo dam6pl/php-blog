@@ -51,10 +51,12 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
         case '/contact':
             require 'views/contact.php';
             break;
-        case (bool)preg_match('/^\/posts\/(?<ID>\d+)\/?/', REQUEST_URL, $matches):
-            $post_id = $matches[1];
-            require 'views/post.php';
-            break;
+        case (bool)preg_match('/^\/posts\/(?<ID>\d+)\/?$/', REQUEST_URL, $matches):
+            $post = get_post($matches[1]);
+            if ($post) {
+                require 'views/post.php';
+                break;
+            }
         default:
             header('HTTP/1.0 404 Not Found');
             require 'views/404.php';

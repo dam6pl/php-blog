@@ -1,10 +1,7 @@
 <?php
 /**
- * @var int $post_id Post ID.
+ * @var array $post Post.
  */
-
-$post = get_post($post_id);
-
 ?>
 
 <!-- Page Header -->
@@ -41,18 +38,18 @@ $post = get_post($post_id);
         <div class="col-lg-8 col-md-10 mx-auto">
             <h2>Komentarze</h2>
             <div class="row">
-                <?php foreach (get_comments($post_id) as $comment): ?>
-                   <div class="col-12 my-3">
-                       <h6><?= $comment['name']; ?> dnia <?= date('d M Y', strtotime($comment['added_at'])); ?>
-                       o godzinie <?= date('H:i', strtotime($comment['added_at'])); ?> napisał: </h6>
-                       <p><?= $comment['content']; ?></p>
-                       <hr/>
-                   </div>
+                <?php foreach (get_comments($post['post_id']) as $comment): ?>
+                    <div class="col-12 my-3">
+                        <h6><?= $comment['name']; ?> dnia <?= date('d M Y', strtotime($comment['added_at'])); ?>
+                            o godzinie <?= date('H:i', strtotime($comment['added_at'])); ?> napisał: </h6>
+                        <p><?= $comment['content']; ?></p>
+                        <hr/>
+                    </div>
                 <?php endforeach; ?>
             </div>
             <div class="mt-3">
                 <h4>Dodaj nowy komentarz</h4>
-                <form method="post" action="<?= HOME_URL; ?>posts/<?= $post_id; ?>">
+                <form method="post" action="<?= HOME_URL; ?>posts/<?= $post['post_id']; ?>">
                     <input type="text" name="action" title="action" value="action_add_comment" hidden>
                     <input type="text" name="post_id" title="post_id" value="<?= $post['post_id']; ?>" hidden>
                     <div class="control-group">

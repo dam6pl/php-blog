@@ -105,7 +105,7 @@ function get_post(int $post_id): array
     $query = $pdo->prepare("SELECT * FROM posts LEFT JOIN users ON posts.author_id = users.user_id  WHERE post_id = ?");
     $query->execute([$post_id]);
 
-    return $query->fetch(PDO::FETCH_ASSOC);
+    return $query->fetch(PDO::FETCH_ASSOC) ?: [];
 }
 
 /**
