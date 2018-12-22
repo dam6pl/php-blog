@@ -15,3 +15,4 @@ require_once 'helpers/request.php';
 
 //Simple router
 include_once 'helpers/router.php';
+ 
