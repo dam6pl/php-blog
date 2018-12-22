@@ -21,30 +21,30 @@ SET NAMES utf8mb4;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table comments
+# Dump of table users
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `comments`;
+DROP TABLE IF EXISTS `users`;
 
-CREATE TABLE `comments` (
-  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `display_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_admin` tinyint(1) NOT NULL,
   `added_at` datetime NOT NULL,
-  PRIMARY KEY (`comment_id`),
-  KEY `post_id` (`post_id`),
-  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `comments` WRITE;
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `comments` (`comment_id`, `post_id`, `name`, `content`, `added_at`)
+INSERT INTO `users` (`user_id`, `login`, `password`, `display_name`, `is_admin`, `added_at`)
 VALUES
-	(1,3,'Łukasz','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper arcu arcu. Etiam quis ex elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur pretium dui quis sagittis tincidunt.','2018-12-20 15:33:21');
+	(1,'admin','$2y$10$kBZXmiffTRU6AH/k4xptteut.Ob698YA57U.6jId8H0/gwmSekd02','Administrator bloga',1,'2018-12-20 15:22:25'),
+	(2,'mgorski','$2y$10$1u30qpjqsh6LJzEJPUObFup3JoXP./nOMHypRO9CKXCrypm3SBNxq','Michał Górski',0,'2018-12-20 15:37:46');
 
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -80,32 +80,31 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table users
+# Dump of table comments
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `comments`;
 
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `display_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_admin` tinyint(1) NOT NULL,
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `added_at` datetime NOT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`comment_id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`post_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 
-INSERT INTO `users` (`user_id`, `login`, `password`, `display_name`, `is_admin`, `added_at`)
+INSERT INTO `comments` (`comment_id`, `post_id`, `name`, `content`, `added_at`)
 VALUES
-	(1,'admin','$2y$10$kBZXmiffTRU6AH/k4xptteut.Ob698YA57U.6jId8H0/gwmSekd02','Administrator bloga',1,'2018-12-20 15:22:25'),
-	(2,'mgorski','$2y$10$1u30qpjqsh6LJzEJPUObFup3JoXP./nOMHypRO9CKXCrypm3SBNxq','Michał Górski',0,'2018-12-20 15:37:46');
+	(1,3,'Łukasz','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper arcu arcu. Etiam quis ex elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur pretium dui quis sagittis tincidunt.','2018-12-20 15:33:21');
 
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
-
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

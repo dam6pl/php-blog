@@ -2,7 +2,7 @@
 
 session_start();
 
-define('REQUEST_URL', str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['PHP_SELF']));
+define('REQUEST_URL', $_SERVER['REQUEST_URI']);
 define('HOME_URL', str_replace(
         'index.php', '',
         'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'])

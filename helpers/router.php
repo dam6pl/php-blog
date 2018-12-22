@@ -42,7 +42,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
     require_once 'views/partials/header.php';
 
     switch (REQUEST_URL) {
-        case '':
+        case '/':
             require 'views/home.php';
             break;
         case '/about':
