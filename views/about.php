@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
-                    <h1>O mnie</h1>
-                    <span class="subheading">Co robię i czym się zajamuje.</span>
+                    <h1>O nas</h1>
+                    <span class="subheading">Co robimy i czym się zajamujemy.</span>
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@
             <div class="col-lg-8 col-md-10 mx-auto">
                 <div class="page-heading">
                     <h1>Kontakt</h1>
-                    <span class="subheading">Masz pytanie? Postaram się odpowiedzieć.</span>
+                    <span class="subheading">Masz pytanie? Postaramy się odpowiedzieć.</span>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Chcesz się skontaktować? Wypełnij poniższy formularz, aby wysłać do mnie wiadomość, a skontaktuję się z
+            <p>Chcesz się skontaktować? Wypełnij poniższy formularz, aby wysłać do nas wiadomość, a skontaktujemy się z
                 Tobą najszybciej, jak to możliwe!</p>
             <form name="sentMessage" id="contactForm" novalidate method="post">
                 <div class="control-group">
