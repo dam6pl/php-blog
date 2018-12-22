@@ -9,8 +9,8 @@ if (!empty($_POST) && isset($_POST['action'])) {
     }
 
     if ($action !== 'action_save_post') {
-        $redirect = str_replace('index.php/', '', $_SERVER['PHP_SELF']);
-        header("Location: {$redirect}");
+        var_dump($_SERVER);
+        header("Location: " . REQUEST_URL);
     }
 }
 

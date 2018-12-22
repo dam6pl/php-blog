@@ -21,6 +21,8 @@ try {
         $config['DB_PASS']
     );
 
+    $pdo->query('SET NAMES utf8');
+
     create_database();
 } catch (PDOException $exception) {
     die($exception->getMessage());

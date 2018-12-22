@@ -5,7 +5,7 @@ session_start();
 define('REQUEST_URL', $_SERVER['REQUEST_URI']);
 define('HOME_URL', str_replace(
         'index.php', '',
-        'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'])
+        ($_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'])
 );
 
 //Require helpers
