@@ -9,7 +9,6 @@ if (!empty($_POST) && isset($_POST['action'])) {
     }
 
     if ($action !== 'action_save_post') {
-        var_dump($_SERVER);
         header("Location: " . REQUEST_URL);
     }
 }
