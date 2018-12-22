@@ -31,7 +31,7 @@ if (preg_match('/^\/admin$|\/admin\//', REQUEST_URL)) {
                 require 'views/admin/register.php';
                 break;
             default:
-                header("Location: " . HOME_URL . "/admin");
+                header("Location: " . HOME_URL . "admin");
         }
     }
 
