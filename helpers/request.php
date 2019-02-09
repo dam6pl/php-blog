@@ -9,7 +9,7 @@ if (!empty($_POST) && isset($_POST['action'])) {
     }
 
     if ($action !== 'action_save_post') {
-        header("Location: " . REQUEST_URL);
+        header('Location: ' . REQUEST_URL);
     }
 }
 
@@ -56,9 +56,9 @@ function action_save_post(): void
     $content = filter_input(INPUT_POST, 'content');
     $image = filter_input(INPUT_POST, 'image', FILTER_VALIDATE_URL);
 
-    $postid = update_post($post_id ?: 0, $title, $content, $image);
+    $postId = update_post($post_id ?: 0, $title, $content, $image);
 
-    header("Location: " . HOME_URL . "admin/posts/{$postid}");
+    header('Location: ' . HOME_URL . "admin/posts/{$postId}");
 }
 
 /**

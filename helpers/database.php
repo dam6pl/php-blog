@@ -2,8 +2,8 @@
 
 if ($config_file = @file_get_contents('config.conf')) {
     foreach (explode(PHP_EOL, $config_file) as $single) {
-        list($k, $v) = explode(':', $single);
-        $config[$k] = $v;
+        $params = explode(':', $single);
+        $config[$params[0]] = $params[1] ?? '';
     }
 } else {
     die('Plik konfiguracyjny nie został utworzony!');
@@ -13,7 +13,7 @@ try {
     /* @var $pdo PDO */
     $pdo = new PDO(
         sprintf(
-            "mysql:host=%s;dbname=%s;port=3306",
+            'mysql:host=%s;dbname=%s;port=3306',
             $config['DB_HOST'],
             $config['DB_NAME']
         ),
@@ -21,7 +21,7 @@ try {
         $config['DB_PASS']
     );
 
-    $pdo->query('SET NAMES utf8');
+    $pdo->exec('SET NAMES utf8');
 
     create_database();
 } catch (PDOException $exception) {
@@ -81,10 +81,9 @@ function get_posts(): array
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT post_id, users.display_name, users.login, title, content, image_url, 
+    $query = $pdo->query('SELECT post_id, users.display_name, users.login, title, content, image_url, 
 posts.added_at, posts.modified_at FROM posts LEFT JOIN users ON posts.author_id = users.user_id 
-ORDER BY posts.post_id ");
-    $query->execute();
+ORDER BY posts.post_id');
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -100,7 +99,8 @@ function get_post(int $post_id): array
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT * FROM posts LEFT JOIN users ON posts.author_id = users.user_id  WHERE post_id = ?");
+    $query = $pdo->prepare('SELECT * FROM posts LEFT JOIN users ON posts.author_id = users.user_id 
+    WHERE post_id = ?');
     $query->execute([$post_id]);
 
     return $query->fetch(PDO::FETCH_ASSOC) ?: [];
@@ -123,12 +123,12 @@ function update_post(int $post_id, string $title, string $content, string $image
     $current_time = date('Y-m-d H:i:s');
 
     if ($post_id > 0) {
-        $query = $pdo->prepare("UPDATE posts SET title = ?, content = ?, image_url = ?, 
-modified_at = ? WHERE post_id = ?");
+        $query = $pdo->prepare('UPDATE posts SET title = ?, content = ?, image_url = ?, 
+modified_at = ? WHERE post_id = ?');
         $query->execute([$title, $content, $image_url, $current_time, $post_id]);
     } else {
-        $query = $pdo->prepare("INSERT INTO posts(author_id, title, content, image_url, 
-added_at, modified_at) VALUES (?, ?, ?, ?, ?, ?)");
+        $query = $pdo->prepare('INSERT INTO posts(author_id, title, content, image_url, 
+added_at, modified_at) VALUES (?, ?, ?, ?, ?, ?)');
         $query->execute([
             $_SESSION['user_id'],
             $title,
@@ -138,10 +138,10 @@ added_at, modified_at) VALUES (?, ?, ?, ?, ?, ?)");
             $current_time
         ]);
 
-        $post_id = $pdo->lastInsertId();
+        $post_id = (int)$pdo->lastInsertId();
     }
 
-    return (int)$post_id;
+    return $post_id;
 }
 
 /**
@@ -153,7 +153,7 @@ function delete_post(int $post_id): void
 {
     global $pdo;
 
-    $query = $pdo->prepare("DELETE FROM posts WHERE post_id = ?");
+    $query = $pdo->prepare('DELETE FROM posts WHERE post_id = ?');
     $query->execute([$post_id]);
 }
 
@@ -166,8 +166,7 @@ function get_users(): array
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT * FROM users");
-    $query->execute();
+    $query = $pdo->query('SELECT * FROM users');
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -184,7 +183,7 @@ function get_user(string $login, string $password): array
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT * FROM users WHERE login = ?");
+    $query = $pdo->prepare('SELECT * FROM users WHERE login = ?');
     $query->execute([$login]);
 
     $user_info = $query->fetch(PDO::FETCH_ASSOC);
@@ -209,8 +208,8 @@ function create_user(string $login, string $password, string $display_name): voi
 
     $current_time = date('Y-m-d H:i:s');
 
-    $query = $pdo->prepare("INSERT INTO users(login, password, display_name, is_admin, added_at) 
-VALUES(?, ?, ?, ?, ?)");
+    $query = $pdo->prepare('INSERT INTO users(login, password, display_name, is_admin, added_at) 
+VALUES(?, ?, ?, ?, ?)');
     $query->execute([
         $login,
         password_hash($password, PASSWORD_DEFAULT),
@@ -229,7 +228,7 @@ function delete_user(int $user_id): void
 {
     global $pdo;
 
-    $query = $pdo->prepare("DELETE FROM users WHERE user_id = ?");
+    $query = $pdo->prepare('DELETE FROM users WHERE user_id = ?');
     $query->execute([$user_id]);
 }
 
@@ -246,8 +245,8 @@ function create_comment(int $post_id, string $name, string $message): void
 
     $current_time = date('Y-m-d H:i:s');
 
-    $query = $pdo->prepare("INSERT INTO comments(post_id, name, content, added_at) 
-VALUES(?, ?, ?, ?)");
+    $query = $pdo->prepare('INSERT INTO comments(post_id, name, content, added_at) 
+VALUES(?, ?, ?, ?)');
     $query->execute([
         $post_id,
         $name,
@@ -267,12 +266,11 @@ function get_comments(int $post_id = 0): array
 {
     global $pdo;
     if ($post_id > 0) {
-        $query = $pdo->prepare("SELECT * FROM comments WHERE post_id = ?");
+        $query = $pdo->prepare('SELECT * FROM comments WHERE post_id = ?');
         $query->execute([$post_id]);
     } else {
-        $query = $pdo->prepare("SELECT comment_id, posts.post_id, posts.title as post_title, 
-comments.name, comments.content, comments.added_at FROM comments LEFT JOIN posts on comments.post_id = posts.post_id");
-        $query->execute();
+        $query = $pdo->query('SELECT comment_id, posts.post_id, posts.title as post_title, 
+comments.name, comments.content, comments.added_at FROM comments LEFT JOIN posts on comments.post_id = posts.post_id');
     }
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
@@ -287,6 +285,6 @@ function delete_comment(int $comment_id): void
 {
     global $pdo;
 
-    $query = $pdo->prepare("DELETE FROM comments WHERE comment_id = ?");
+    $query = $pdo->prepare('DELETE FROM comments WHERE comment_id = ?');
     $query->execute([$comment_id]);
 }
