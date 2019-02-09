@@ -12,6 +12,7 @@ define('HOME_URL', str_replace(
 require_once 'helpers/database.php';
 require_once 'helpers/session.php';
 require_once 'helpers/request.php';
+require_once 'helpers/contact_message.php';
 
 //Simple router
 include_once 'helpers/router.php';
