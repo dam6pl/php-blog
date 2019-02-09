@@ -35,5 +35,5 @@ function is_logged(): bool
 
 function is_admin(): bool
 {
-    return (bool)$_SESSION['is_admin'] ?? false;
+    return (bool)($_SESSION['is_admin'] ?? false);
 }
