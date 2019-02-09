@@ -63,6 +63,12 @@ img::-moz-selection {
   color: #fff;
   background: transparent; }
 
+  #success{
+    text-align: center;
+    padding: 10px;
+    color: green;
+}  
+
 #mainNav {
   position: absolute;
   border-bottom: 1px solid #e9ecef;

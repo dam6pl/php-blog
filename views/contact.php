@@ -1,11 +1,5 @@
 <!-- Page Header -->
-<style>
-    #success{
-        text-align: center;
-        padding: 10px;
-        color: green;
-    }
-</style>
+
 <header class="masthead" style="background-image: url('<?= HOME_URL; ?>assets/images/contact-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
@@ -70,7 +64,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" id="sendMessageButton">Wyślij</button>
                 </div>
-                <div id="success">
+                <div>
                     <?php
                         if($send_status){
                             echo "Wiadomość została poprawnie wysłana";
