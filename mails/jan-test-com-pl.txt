@@ -1,0 +1,6 @@
+Dane wiadomości:
+Imie: Jan
+Adres email: jan@test.com.pl
+Numer telefonu: 123456789
+Treść wiadomości: Wiadomość testowa
+

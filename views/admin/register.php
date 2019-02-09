@@ -4,8 +4,8 @@
             <div class="panel mb-5">
                 <h2>Rejestracja</h2>
             </div>
-            <form method="post" action="">
-                <input type="text" name="action" value="register_account" hidden>
+            <form method="post" action="<?= HOME_URL; ?>admin">
+                <input type="text" name="action" title="action" value="action_register_account" hidden>
                 <div class="form-group floating-label-form-group">
                     <label>Imie i nazwisko</label>
                     <input type="text" class="form-control" name="name" placeholder="Imie i nazwisko">

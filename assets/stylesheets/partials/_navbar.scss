@@ -23,13 +23,28 @@
         letter-spacing: 1px;
         text-transform: uppercase;
       }
+      form {
+        button {
+          border: none;
+          background: none;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          padding: 8px 0;
+          cursor: pointer;
+          color: #343a40;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
     }
   }
   @media only screen and (min-width: 992px) {
     border-bottom: 1px solid transparent;
     background: transparent;
     .navbar-brand {
-      padding: 10px 20px;
       color: $white;
       &:focus,
       &:hover {
@@ -46,6 +61,13 @@
             color: fade-out($white, .2);
           }
         }
+
+        form {
+          button {
+            padding: 10px 20px;
+          }
+        }
+
       }
     }
   }

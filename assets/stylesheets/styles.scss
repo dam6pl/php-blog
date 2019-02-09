@@ -10,4 +10,6 @@
 
 body.admin {
   @import "partials/admin/login";
+  @import "partials/admin/navbar";
+  @import "partials/admin/posts-list";
 }

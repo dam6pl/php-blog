@@ -4,19 +4,20 @@
             <div class="panel mb-5">
                 <h2>Panel administracyjny</h2>
             </div>
-            <form method="post" action="">
+            <form method="post" action="<?= HOME_URL; ?>admin">
+                <input type="text" name="action" title="action" value="action_login" hidden>
                 <div class="form-group floating-label-form-group controls">
                     <label>Login</label>
-                    <input type="text" class="form-control" placeholder="Login">
+                    <input type="text" class="form-control" name="login" placeholder="Login">
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group floating-label-form-group mt-4 controls">
                     <label>Hasło</label>
-                    <input type="password" class="form-control" placeholder="Hasło">
+                    <input type="password" class="form-control" name="password" placeholder="Hasło">
                     <p class="help-block text-danger"></p>
                 </div>
                 <div class="create-account my-4">
-                    <span>Nie masz konta?</span> <a href="/admin/create-account">Utwórz konto!</a>
+                    <span>Nie masz konta?</span> <a href="<?= HOME_URL; ?>admin/create-account">Utwórz konto!</a>
                 </div>
                 <button type="submit" class="btn btn-primary">Zaloguj się</button>
             </form>
