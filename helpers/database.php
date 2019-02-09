@@ -82,8 +82,8 @@ function get_posts(): array
     global $pdo;
 
     $query = $pdo->query('SELECT post_id, users.display_name, users.login, title, content, image_url, 
-posts.added_at, posts.modified_at FROM posts LEFT JOIN users ON posts.author_id = users.user_id 
-ORDER BY posts.post_id');
+    posts.added_at, posts.modified_at FROM posts LEFT JOIN users ON posts.author_id = users.user_id 
+    ORDER BY posts.post_id');
 
     return $query->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -124,11 +124,11 @@ function update_post(int $post_id, string $title, string $content, string $image
 
     if ($post_id > 0) {
         $query = $pdo->prepare('UPDATE posts SET title = ?, content = ?, image_url = ?, 
-modified_at = ? WHERE post_id = ?');
+        modified_at = ? WHERE post_id = ?');
         $query->execute([$title, $content, $image_url, $current_time, $post_id]);
     } else {
         $query = $pdo->prepare('INSERT INTO posts(author_id, title, content, image_url, 
-added_at, modified_at) VALUES (?, ?, ?, ?, ?, ?)');
+        added_at, modified_at) VALUES (?, ?, ?, ?, ?, ?)');
         $query->execute([
             $_SESSION['user_id'],
             $title,
@@ -209,7 +209,7 @@ function create_user(string $login, string $password, string $display_name): voi
     $current_time = date('Y-m-d H:i:s');
 
     $query = $pdo->prepare('INSERT INTO users(login, password, display_name, is_admin, added_at) 
-VALUES(?, ?, ?, ?, ?)');
+    VALUES(?, ?, ?, ?, ?)');
     $query->execute([
         $login,
         password_hash($password, PASSWORD_DEFAULT),
@@ -245,8 +245,7 @@ function create_comment(int $post_id, string $name, string $message): void
 
     $current_time = date('Y-m-d H:i:s');
 
-    $query = $pdo->prepare('INSERT INTO comments(post_id, name, content, added_at) 
-VALUES(?, ?, ?, ?)');
+    $query = $pdo->prepare('INSERT INTO comments(post_id, name, content, added_at) VALUES(?, ?, ?, ?)');
     $query->execute([
         $post_id,
         $name,
@@ -270,7 +269,8 @@ function get_comments(int $post_id = 0): array
         $query->execute([$post_id]);
     } else {
         $query = $pdo->query('SELECT comment_id, posts.post_id, posts.title as post_title, 
-comments.name, comments.content, comments.added_at FROM comments LEFT JOIN posts on comments.post_id = posts.post_id');
+        comments.name, comments.content, comments.added_at FROM comments 
+        LEFT JOIN posts on comments.post_id = posts.post_id');
     }
 
     return $query->fetchAll(PDO::FETCH_ASSOC);

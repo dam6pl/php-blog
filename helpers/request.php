@@ -93,6 +93,9 @@ function action_remove_comment(): void
     delete_comment($comment_id);
 }
 
+/**
+ * Remove single user.
+ */
 function action_remove_user(): void
 {
     $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);

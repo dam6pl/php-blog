@@ -1,2 +1,3 @@
 config.conf
-mails/
+mails/*
+!mails/.gitkeep
