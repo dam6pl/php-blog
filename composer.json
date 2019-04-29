@@ -1,0 +1,23 @@
+{
+  "name": "wsb/php-blog",
+  "authors": [
+    {
+      "name": "Damian Nowak",
+      "email": "damiannowak42@gmail.com"
+    },
+    {
+      "name": "Jacek Kopka",
+      "email": "jackop007@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "twig/twig": "~2.0",
+    "symfony/var-dumper": "^4.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Core\\": "src/Core/",
+      "App\\": "src/App/"
+    }
+  }
+}
