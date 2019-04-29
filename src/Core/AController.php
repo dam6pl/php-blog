@@ -10,6 +10,9 @@ namespace Core;
  */
 abstract class AController
 {
+    /**
+     * @var array
+     */
     protected $route_params = [];
 
     /**
@@ -28,7 +31,7 @@ abstract class AController
      *
      * @throws Exception
      */
-    public function __call($name, $args)
+    public function __call(string $name, array $args): void
     {
         $method = $name . 'Action';
         if (method_exists($this, $method)) {

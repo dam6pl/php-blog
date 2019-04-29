@@ -34,7 +34,7 @@ class Router
      * @param       $route
      * @param array $params
      */
-    public function add($route, $params = []): void
+    public function add(string $route, array $params = []): void
     {
         $route = preg_replace('/\//', '\\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
@@ -57,7 +57,7 @@ class Router
      *
      * @return bool
      */
-    public function match($url): bool
+    public function match(string $url): bool
     {
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
@@ -87,10 +87,22 @@ class Router
      *
      * @throws Exception
      */
-    public function dispatch($url): void
+    public function dispatch(string $url): void
     {
         $url = $this->removeQueryStringVariables($url);
         if ($this->match($url)) {
+            if (isset($this->params['middleware'])) {
+                $middleware = $this->params['middleware'];
+                $middleware = $this->convertToStudlyCaps($middleware);
+                $middleware = $this->getMiddlewareNamespace() . $middleware;
+
+                if ($middleware instanceof AMiddleware) {
+                    /** @var AMiddleware $middleware_object */
+                    $middleware_object = new $middleware($this->params);
+                    $middleware_object->handle();
+                }
+            }
+
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
             $controller = $this->getNamespace() . $controller;
@@ -116,7 +128,7 @@ class Router
      *
      * @return string
      */
-    protected function convertToStudlyCaps($string): string
+    protected function convertToStudlyCaps(string $string): string
     {
         return str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
     }
@@ -126,7 +138,7 @@ class Router
      *
      * @return string
      */
-    protected function convertToCamelCase($string): string
+    protected function convertToCamelCase(string $string): string
     {
         return lcfirst($this->convertToStudlyCaps($string));
     }
@@ -136,7 +148,7 @@ class Router
      *
      * @return string
      */
-    protected function removeQueryStringVariables($url): string
+    protected function removeQueryStringVariables(string $url): string
     {
         if ($url !== '') {
             $parts = explode('&', $url, 2);
@@ -157,6 +169,19 @@ class Router
         $namespace = 'App\Controllers\\';
         if (array_key_exists('namespace', $this->params)) {
             $namespace .= $this->params['namespace'] . '\\';
+        }
+        return $namespace;
+    }
+
+
+    /**
+     * @return string
+     */
+    protected function getMiddlewareNamespace(): string
+    {
+        $namespace = 'App\Middleware\\';
+        if (array_key_exists('middleware_namespace', $this->params)) {
+            $namespace .= $this->params['middleware_namespace'] . '\\';
         }
         return $namespace;
     }

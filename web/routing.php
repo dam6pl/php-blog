@@ -10,5 +10,5 @@ $router->add('/about', ['controller' => 'PageController', 'action' => 'about']);
 $router->add('/contact', ['controller' => 'PageController', 'action' => 'contact']);
 
 $router->add('/posts/{id:\d+}', ['controller' => 'PostController', 'action' => 'single']);
-$router->add('/admin/posts', ['controller' => 'PostController', 'action' => 'index']);
-$router->add('/admin/posts/{id:\d+}', ['controller' => 'PostController', 'action' => 'edit']);
+$router->add('/admin/posts', ['controller' => 'PostController', 'action' => 'index' , 'middleware' => 'AuthMiddleware']);
+$router->add('/admin/posts/{id:\d+}', ['controller' => 'PostController', 'action' => 'edit', 'middleware' => 'AuthMiddleware']);

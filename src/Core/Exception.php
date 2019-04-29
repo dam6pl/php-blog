@@ -27,7 +27,7 @@ class Exception extends \Exception
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public static function exceptionHandler($exception): void
+    public static function exceptionHandler(\Throwable $exception): void
     {
         $code = $exception->getCode();
 
