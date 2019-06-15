@@ -11,7 +11,8 @@ Travel blog, with the ability to create accounts, add posts and comment. A simpl
 
 ## Installation
 1. Based on the `.env.example` file, create the` .env` file, and complete the database information.
-2. Run the `http: //127.0.0.1:8000` page in the browser.
+2. Retrieve all dependencies with the `composer install` command.
+3. Run the `http: //127.0.0.1:8000` page in the browser.
 4. Access to the administrative panel is possible via the address `http: // localhost: 3000 / admin`. The sample database contains the `admin` account with the password` admin`, with administrator privileges.
 
 ## The runtime environment
