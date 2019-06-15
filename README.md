@@ -1,28 +1,26 @@
-# Blog podróżniczy
+# Travel blog
 
-Blog podrozniczy, z mozliwoscia tworzenia kont, dodawania postow oraz komentowania. Prosty system administracyjny dla uzytnownikow oraz administratorow bloga. 
+Travel blog, with the ability to create accounts, add posts and comment. A simple administrative system for users and blog administrators.
 
-## Załozenia projektowe
-- [x] Edycja tresci dostępna tylko po zalogowaniu.
-- [x] Mozliwosc rejestracji, jako uzytkownik.
-- [x] Mozliwosc dodawania postow, zarzadzania wlasnymi postami oraz zarzadzania komentarzami dla uzytnownikow.
-- [x] Mozliwosc zarzadzania wszytkimi postami oraz uzytkownikami dla administratorow.
-- [x] Mozliwosc komentowania postow dla wszystkich.
+## Design assumptions
+- [x] Editing content is available only after logging in.
+- [x] Possibility to register as a user.
+- [x] Possibility to add posts, manage own posts and manage comments for users.
+- [x] Possibility to manage all posts and users for administrators.
+- [x] Possibility to comment on posts for everyone.
 
-## Srodowisko uruchomieniowe
-Do uruchomienia projektu, zalecane jest skorzystanie z [serwera deweloperskiego PHP](http://php.net/manual/pl/features.commandline.webserver.php).
-1. Przejść do katalogu w którym znajduje się Projekt.
-2. Uruchomić serwer komendą `php -S localhost:3000`.
-3. Od teraz blog dostępny jest pod adresem `http://localhost:3000`.
+## Installation
+1. Based on the `.env.example` file, create the` .env` file, and complete the database information.
+2. Run the `http: //127.0.0.1:8000` page in the browser.
+4. Access to the administrative panel is possible via the address `http: // localhost: 3000 / admin`. The sample database contains the `admin` account with the password` admin`, with administrator privileges.
 
+## The runtime environment
+To run the project, it is recommended to use the Laravela server.
+1. Go to the directory in which the project is located.
+2. Run the server using the `php artisan serve` command.
+3. In the case of the first application launch, please migrate with the command `php artisan migrate: refresh --seed`.
+3. From now on the blog is available at `http: //127.0.0.1:8000`.
 
-## Instalacja
-1. Bazując na pliku `config-sample.conf`, utworzyć plik `config.conf`, oraz uzupełnić informacje o bazie danych.
-2. Uruchomić stronę `http://localhost:3000` w przeglądarce. W tym momencie utworzą się wszystkie wymagane tabele w bazie danych.
-3. Opcjonalnie, korzystając z klienta MySQL zaimportować plik `database.sql`, zawierający przykładowe dane.
-4. Dostęp do panelu administracyjnego moliwy jest poprzez adres `http://localhost:3000/admin`. Przykładowa baza danych zawiera konto `admin` z hasłem `WSB-NLU`, z uprawnieniami administratora.
-
-
-# Autorzy
-* [Damian Nowak](mailto:damiannowak42@gmail.com)
+# Authors
+* [Damian Nowak] (mailto: me@dnowak.dev)
 * Jacek Kopka
