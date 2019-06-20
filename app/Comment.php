@@ -11,5 +11,11 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['post_id', 'author', 'content'];
+    protected $table = 'comments';
+    protected $fillable = ['post_id', 'author', 'content', "created_at"];
+
+    public function post()
+    {
+        return $this->hasOne('App\Post', 'id', 'post_id');
+    }
 }

@@ -5,16 +5,11 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class PagesController extends Controller
 {
     public function index()
     {
         return \view('blog.index', ['posts' => Post::all()->reverse()]);
-    }
-
-    public function adminPosts()
-    {
-        return \view('admin.posts', ['posts' => Post::all()]);
     }
 
     public function contactForm(Request $request)

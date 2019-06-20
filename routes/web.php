@@ -11,26 +11,32 @@
 |
 */
 
-Route::get('/', 'PageController@index');
+Route::get('/', 'PagesController@index');
 Route::get('/about', function () {
     return view('blog.about');
 });
 Route::get('/contact', function () {
     return view('blog.contact');
 });
-Route::post('/contact', 'PageController@contactForm');
-Route::get('/posts/{id}', 'PostController@single');
-Route::post('/posts/{id}', 'PostController@insertComment');
+Route::post('/contact', 'PagesController@contactForm');
+Route::get('/posts/{id}', 'PostsController@single');
+Route::post('/posts/{id}', 'PostsController@insertComment');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
         return redirect('admin/posts');
     });
 
-    Route::get('/posts', 'PageController@adminPosts');
-    Route::post('/posts/{id}/delete', 'PostController@delete');
-    Route::get('/posts/{id}', 'PostController@edit');
-    Route::post('/posts/{id}/update', 'PostController@update');
+    Route::get('/posts', 'PostsController@index');
+    Route::post('/posts/{id}/delete', 'PostsController@delete');
+    Route::get('/posts/{id}', 'PostsController@edit');
+    Route::post('/posts/{id}/update', 'PostsController@update');
+
+    Route::get('/comments', 'CommentsController@index');
+    Route::post('/comments/{id}/delete', 'CommentsController@delete');
+
+    Route::get('/users', 'UsersController@index');
+    Route::post('/users/{id}/delete', 'UsersController@delete');
 });
 
 Auth::routes();

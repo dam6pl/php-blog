@@ -47,6 +47,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/contact') }}">Kontakt</a>
                 </li>
+                @if (auth()->user() !== null)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/admin') }}">Panel administracyjny</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
