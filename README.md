@@ -2,6 +2,8 @@
 
 Travel blog, with the ability to create accounts, add posts and comment. A simple administrative system for users and blog administrators.
 
+**Author:** [Damian Nowak](mailto:me@dnowak.dev)
+
 ## Design assumptions
 - [x] Editing content is available only after logging in.
 - [x] Possibility to register as a user.
@@ -21,7 +23,3 @@ To run the project, it is recommended to use the Laravela server.
 2. Run the server using the `php artisan serve` command.
 3. In the case of the first application launch, please migrate with the command `php artisan migrate:refresh --seed`.
 3. From now on the blog is available at `http://127.0.0.1:8000`.
-
-# Authors
-* [Damian Nowak](mailto:me@dnowak.dev)
-* Jacek Kopka
